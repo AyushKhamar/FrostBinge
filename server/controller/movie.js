@@ -65,3 +65,20 @@ https://api.themoviedb.org/3/movie/${id}/similar?language=en-US`
     });
   }
 };
+export const getMoviesByCategory = async (req, res) => {
+  const { category } = req.params;
+  try {
+    const data = await fetchFromMovieDB(
+      `
+https://api.themoviedb.org/3/movie/${category}?language=en-US&page=1`
+    );
+    res.status(200).json({ success: true, content: data.results });
+  } catch (error) {
+    console.log(error);
+    if (error.status === 404) return res.status(404).send(null);
+    res.status(500).json({
+      success: false,
+      message: "Error in fetching category movies ",
+    });
+  }
+};
