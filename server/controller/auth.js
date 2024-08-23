@@ -44,9 +44,14 @@ export const signUp = async (req, res) => {
     });
     generateToken(newUser._id, res);
     await newUser.save();
-    res
-      .status(200)
-      .json({ success: true, message: "Congratulations. you are in" });
+    res.status(200).json({
+      success: true,
+      user: {
+        ...newUser._doc,
+        password: "",
+      },
+      message: "Congratulations. you are in",
+    });
   } catch (error) {
     console.log("error in signup controller", error);
     res.status(500).json({ success: false, message: "Internal server error" });
@@ -55,6 +60,7 @@ export const signUp = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(email, password);
     if (!email || !password)
       res
         .status(400)
@@ -71,9 +77,14 @@ export const login = async (req, res) => {
         .status(500)
         .json({ success: false, message: "Internal server error" });
 
-    res
-      .status(200)
-      .json({ success: true, message: "Congrats, you are logged in" });
+    res.status(200).json({
+      success: true,
+      user: {
+        ...user._doc,
+        password: "",
+      },
+      message: "Congratulations. you are in",
+    });
   } catch (error) {
     console.log("error in login controller", error);
     res.status(400).json({ success: false, message: "Invalid credentials" });
@@ -86,5 +97,17 @@ export const logout = async (req, res) => {
   } catch (error) {
     console.log("error in logout controller", error);
     res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+export const authCheck = async (req, res) => {
+  try {
+    console.log("This is auth check function", req.user);
+    res.status(200).json({ success: true, user: req.user });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ success: false, message: "Some error in authCheck function" });
   }
 };
