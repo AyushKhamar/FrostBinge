@@ -7,6 +7,8 @@ interface User {
   id: string;
   email: string;
   username: string;
+  image: string;
+  searchHistory: [];
   // Add other user properties as needed
 }
 

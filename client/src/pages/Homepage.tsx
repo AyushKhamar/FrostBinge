@@ -5,9 +5,5 @@ import { useAuthStore } from "../store/authUser.ts";
 
 export const Homepage = () => {
   const { user } = useAuthStore();
-  return (
-    <div className="hero-bg h-screen">
-      {user ? <HomeScreen /> : <AuthScreen />}
-    </div>
-  );
+  return <>{user ? <HomeScreen /> : <AuthScreen />}</>;
 };

@@ -35,7 +35,7 @@ export const signUp = async (req, res) => {
     const salt = await bcrypt.genSalt(7);
     const hashedPassword = await bcrypt.hash(password, salt);
 
-    const images = ["../static/one.png", "../static/two.png"];
+    const images = ["/avatar1.png", "/avatar2.png", "/avatar3.png"];
     const newUser = new User({
       email,
       password: hashedPassword,

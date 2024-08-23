@@ -14,7 +14,7 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 connectToMongoDb();
 app.use("/api/v1/auth", authRouter);
-app.use("/api/v1/movies", authorisation, movieRouter);
+app.use("/api/v1/movie", authorisation, movieRouter);
 app.use("/api/v1/tv", authorisation, tvRouter);
 app.use("/api/v1/search", authorisation, searchRouter);
 
