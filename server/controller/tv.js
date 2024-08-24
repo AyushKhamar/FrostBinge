@@ -4,12 +4,13 @@ export const getTrendingTv = async (req, res) => {
     const data = await fetchFromMovieDB(
       "https://api.themoviedb.org/3/trending/tv/day?language=en-US"
     );
+    console.log("data from get trending tv ", data.results);
     const movie =
       data.results[Math.floor(Math.random() * data.results?.length)];
     console.log(movie);
     res.status(200).json({ success: true, content: movie });
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     res
       .status(500)
       .json({ success: false, message: "Error in fetching the tvs" });
@@ -53,7 +54,7 @@ export const getSimilarTvs = async (req, res) => {
   try {
     const data = await fetchFromMovieDB(
       `
-https://api.themoviedb.org/3/tv/${id}/similar?language=en-US`
+https://api.themoviedb.org/3/tv/${id}/similar?language=en-US&page=1`
     );
     res.status(200).json({ success: true, content: data.results });
   } catch (error) {

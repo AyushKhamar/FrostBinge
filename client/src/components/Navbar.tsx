@@ -26,7 +26,7 @@ export const Navbar = () => {
         <div className="hidden sm:flex">
           <Link
             to={"/"}
-            className="hover:underline"
+            className="hover:underline p-2"
             onClick={() => {
               setContentType("movie");
             }}
@@ -35,14 +35,14 @@ export const Navbar = () => {
           </Link>
           <Link
             to={"/"}
-            className="hover:underline"
+            className="hover:underline p-2"
             onClick={() => {
               setContentType("tv");
             }}
           >
             Tv Shows
           </Link>
-          <Link to={"/history"} className="hover:underline">
+          <Link to={"/history"} className="hover:underline p-2">
             Search History
           </Link>
         </div>
