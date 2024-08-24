@@ -60,7 +60,7 @@ export const signUp = async (req, res) => {
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log(email, password);
+    console.log("this is the login controller", email, password);
     if (!email || !password)
       res
         .status(400)

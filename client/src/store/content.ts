@@ -8,6 +8,6 @@ interface ContentState {
 
 // Create the content store with proper types
 export const useContentStore = create<ContentState>((set) => ({
-  contentType: "movie",
+  contentType: "tv",
   setContentType: (type: string) => set({ contentType: type }),
 }));

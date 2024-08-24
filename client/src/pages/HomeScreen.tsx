@@ -4,6 +4,7 @@ import { Navbar } from "../components/Navbar.tsx";
 import { Link } from "react-router-dom";
 import { Info, Play } from "lucide-react";
 import useGetTrendingContent from "../hooks/useGetTrendingContent.tsx";
+import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants.ts";
 
 export const HomeScreen = () => {
   const { logout } = useAuthStore();
@@ -14,7 +15,7 @@ export const HomeScreen = () => {
       <div className="relative h-screen text-white">
         <Navbar />
         <img
-          src="/extraction.jpg"
+          src={ORIGINAL_IMAGE_BASE_URL + trendingContent?.backdrop_path}
           alt="extraction"
           className="absolute top-0 left-0 w-full h-full object-cover -z-50"
         />
@@ -26,17 +27,20 @@ export const HomeScreen = () => {
           <div className="bg-gradient-to-b from-black via-transparent to-transparent absolute w-full h-full top-0 left-0 -z-10" />
           <div className="max-w-2xl">
             <h1 className="mt-4 text-6xl font-extrabold text-balance">
-              Extraction
+              {trendingContent?.title || trendingContent?.name}
             </h1>
-            <p className="mt-2 text-lg">2014 | 18+</p>
-            <p className="mt-4 text-lg">
-              Chris Hemsworth stars in this nonstop action-thriller with
-              Rudhraksh Jaiswal, Hooda and Golshifteh Farahani.
+            <p className="mt-2 text-lg">
+              {new Date(
+                (trendingContent?.release_date as string) ||
+                  (trendingContent?.first_air_date as string)
+              ).getFullYear()}{" "}
+              {trendingContent?.adult && "| 18+"}
             </p>
+            <p className="mt-4 text-lg">{trendingContent?.overview}</p>
           </div>
           <div className="flex mt-8">
             <Link
-              to={"/watch/123"}
+              to={`/watch/${trendingContent?.id}`}
               className="bg-white hover:bg-white/80 text-black font-bold py-2 px-4 rounded mr-4 flex items-center"
             >
               <Play className="size-6  mr-2 fill-black" />
