@@ -10,6 +10,7 @@ import {
   SMALL_IMAGE_BASE_URL,
 } from "../utils/constants.ts";
 import { formatReleaseDate } from "../utils/dateFunction.ts";
+import WatchPageSkeleton from "../components/WatchPageSkeleton.tsx";
 
 const WatchPage = () => {
   const { id } = useParams();
@@ -100,6 +101,27 @@ const WatchPage = () => {
     "content details",
     content
   );
+  if (loading)
+    return (
+      <div className="min-h-screen bg-black p-10">
+        <WatchPageSkeleton />
+      </div>
+    );
+
+  if (!content) {
+    return (
+      <div className="bg-black text-white h-screen">
+        <div className="max-w-6xl mx-auto">
+          <Navbar />
+          <div className="text-center mx-auto px-4 py-8 h-full mt-40">
+            <h2 className="text-2xl sm:text-5xl font-bold text-balance">
+              Content not found 😥
+            </h2>
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="bg-black min-h-screen text-white">
       <div className="mx-auto container px-4 py-8 h-full">
