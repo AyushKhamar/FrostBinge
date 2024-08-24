@@ -1,23 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuthStore } from "../store/authUser.ts";
 import { Navbar } from "../components/Navbar.tsx";
 import { Link } from "react-router-dom";
 import { Info, Play } from "lucide-react";
 import useGetTrendingContent from "../hooks/useGetTrendingContent.tsx";
-import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants.ts";
+import {
+  MOVIE_CATEGORIES,
+  ORIGINAL_IMAGE_BASE_URL,
+  TV_CATEGORIES,
+} from "../utils/constants.ts";
+import { useContentStore } from "../store/content.ts";
+import { MovieSlider } from "../components/MovieSlider.tsx";
 
 export const HomeScreen = () => {
   const { logout } = useAuthStore();
   const { trendingContent } = useGetTrendingContent();
+  const { contentType } = useContentStore();
+  const [loadingImage, setLoadingImage] = useState(true);
   console.log("trendingContent", trendingContent);
+
+  if (!trendingContent)
+    return (
+      <div className="h-screen text-white relative">
+        <Navbar />
+        <div className="absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center -z-10 shimmer"></div>
+      </div>
+    );
   return (
     <>
       <div className="relative h-screen text-white">
         <Navbar />
+        {/* COOL OPTIMIZATION HACK FOR IMAGES */}
+        {loadingImage && (
+          <div className="absolute top-0 left-0 w-full h-full bg-black/70 flex items-center justify-center shimmer -z-10" />
+        )}
+
         <img
           src={ORIGINAL_IMAGE_BASE_URL + trendingContent?.backdrop_path}
           alt="extraction"
           className="absolute top-0 left-0 w-full h-full object-cover -z-50"
+          onLoad={() => {
+            setLoadingImage(false);
+          }}
         />
         <div
           className="absolute top-0 left-0 w-full h-full bg-black/50 -z-50"
@@ -47,7 +71,7 @@ export const HomeScreen = () => {
               Play
             </Link>
             <Link
-              to={"/watch/123"}
+              to={`/watch/${trendingContent?.id}`}
               className="bg-gray-500/70 hover:bg-gray-500 text-white py-2 px-4 rounded flex items-center"
             >
               <Info className="size-6  mr-2 " />
@@ -55,6 +79,15 @@ export const HomeScreen = () => {
             </Link>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col gap-10 bg-black py-10">
+        {contentType === "movie"
+          ? MOVIE_CATEGORIES.map((category) => (
+              <MovieSlider key={category} category={category} />
+            ))
+          : TV_CATEGORIES.map((category) => (
+              <MovieSlider key={category} category={category} />
+            ))}
       </div>
     </>
   );
