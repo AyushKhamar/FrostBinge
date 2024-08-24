@@ -8,6 +8,9 @@ import { useAuthStore } from "./store/authUser.ts";
 import { useEffect } from "react";
 import { Loader } from "lucide-react";
 import WatchPage from "./pages/WatchPage.tsx";
+import SearchPage from "./pages/SearchPage.tsx";
+import SearchHistoryPage from "./pages/SearchHistoryPage.tsx";
+import NotFoundPage from "./pages/NotFound.tsx";
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
   console.log("auth user is heree", user);
@@ -39,6 +42,15 @@ function App() {
           path="/watch/:id"
           element={user ? <WatchPage /> : <Navigate to={"/"} />}
         ></Route>
+        <Route
+          path="/search"
+          element={user ? <SearchPage /> : <Navigate to={"/"} />}
+        ></Route>
+        <Route
+          path="/history"
+          element={user ? <SearchHistoryPage /> : <Navigate to={"/"} />}
+        ></Route>
+        <Route path="/*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
       <Toaster />

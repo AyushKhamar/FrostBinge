@@ -33,6 +33,7 @@ export const searchMovie = async (req, res) => {
     const data = await fetchFromMovieDB(
       `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`
     );
+    console.log(data);
     if (data.results.length === 0)
       res.status(404).json({ success: false, message: "No such movie found" });
     await User.findByIdAndUpdate(req.user._id, {

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useAuthStore } from "../store/authUser.ts";
+import { useState } from "react";
 import { Navbar } from "../components/Navbar.tsx";
 import { Link } from "react-router-dom";
 import { Info, Play } from "lucide-react";
@@ -13,7 +12,6 @@ import { useContentStore } from "../store/content.ts";
 import { MovieSlider } from "../components/MovieSlider.tsx";
 
 export const HomeScreen = () => {
-  const { logout } = useAuthStore();
   const { trendingContent } = useGetTrendingContent();
   const { contentType } = useContentStore();
   const [loadingImage, setLoadingImage] = useState(true);

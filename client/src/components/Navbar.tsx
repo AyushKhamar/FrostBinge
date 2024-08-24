@@ -1,5 +1,5 @@
 import { LogOut, Menu, Search } from "lucide-react";
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/authUser.ts";
 import { useContentStore } from "../store/content.ts";

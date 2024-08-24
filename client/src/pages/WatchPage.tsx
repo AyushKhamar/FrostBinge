@@ -1,14 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useContentStore } from "../store/content.ts";
 import axios from "axios";
 import { Navbar } from "../components/Navbar.tsx";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import ReactPlayer from "react-player";
-import {
-  ORIGINAL_IMAGE_BASE_URL,
-  SMALL_IMAGE_BASE_URL,
-} from "../utils/constants.ts";
+import { ORIGINAL_IMAGE_BASE_URL } from "../utils/constants.ts";
 import { formatReleaseDate } from "../utils/dateFunction.ts";
 import WatchPageSkeleton from "../components/WatchPageSkeleton.tsx";
 
