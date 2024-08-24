@@ -14,13 +14,14 @@ const __dirname = path.resolve();
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
-connectToMongoDb();
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/movie", authorisation, movieRouter);
 app.use("/api/v1/tv", authorisation, tvRouter);
 app.use("/api/v1/search", authorisation, searchRouter);
-
-if (ENV_VARS.NODE_ENV === "production") {
+console.log(process.env.NODE_ENV);
+console.log(path.join(__dirname, "../client/dist"));
+if (process.env.NODE_ENV === "production") {
+  console.log("req on production");
   app.use(express.static(path.join(__dirname, "/client/dist")));
 
   app.get("*", (req, res) => {
@@ -29,4 +30,5 @@ if (ENV_VARS.NODE_ENV === "production") {
 }
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server started at port : ${process.env.PORT || 3000}`);
+  connectToMongoDb();
 });
